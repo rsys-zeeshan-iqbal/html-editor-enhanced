@@ -283,12 +283,11 @@ class _HtmlEditorWidgetMobileState extends State<HtmlEditorWidget> {
                             """;
                             controller.addJavaScriptHandler(
                                 handlerName: 'getSuggestions',
-                                callback: (value) {
-                                  return p.getSuggestionsMobile!
-                                      .call(value.first.toString())
-                                      .toString()
-                                      .replaceAll('[', '')
-                                      .replaceAll(']', '');
+                                callback: (value) async {
+                                  final list = await Future.value(
+                                      p.getSuggestionsMobile!
+                                          .call(value.first.toString()));
+                                  return list.join(',');
                                 });
                             if (p.onSelect != null) {
                               controller.addJavaScriptHandler(

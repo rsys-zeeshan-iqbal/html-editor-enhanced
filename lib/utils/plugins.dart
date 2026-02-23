@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 
 /// Abstract class that all the plguin classes extend
@@ -18,8 +20,10 @@ abstract class Plugins {
 ///
 /// README available [here](https://github.com/team-loxo/summernote-at-mention)
 class SummernoteAtMention extends Plugins {
-  /// Function used to get the displayed suggestions on mobile
-  final List<String> Function(String)? getSuggestionsMobile;
+  /// Function used to get the displayed suggestions on mobile.
+  /// May return [List<String>] synchronously or [Future<List<String>>] for
+  /// async search (e.g. server-side mention lookup).
+  final FutureOr<List<String>> Function(String)? getSuggestionsMobile;
 
   /// List of mentions to display on Web. The default behavior is to only return
   /// the mentions containing the string entered by the user in the editor
